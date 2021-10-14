@@ -11,7 +11,7 @@ fn main () {
     let _ = env_logger::try_init();
     let addr = env::args().nth(1).unwrap_or_else(|| "127.0.0.1:8080".to_string());
     let server = TcpListener::bind(addr).unwrap();
-    // TODO: figure out how to gracefully stop
+    // TODO: figure out how to gracefully stop, probably requires async
     for stream in server.incoming() {
         // TODO: figure out how to use ? or and_then to avoid this pattern
         let stream = match stream {
