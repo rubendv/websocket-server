@@ -37,7 +37,7 @@ fn simulation() -> Arc<Mutex<SimulationState>> {
         let mut rng = rand::thread_rng();
         loop {
             {
-                simulation_state.lock().unwrap().price += rng.gen_range(-1.0..1.0);
+                simulation_state.lock().unwrap().price += rng.gen_range(-0.99..1.0);
             }
             thread::sleep(time::Duration::from_millis(100));
         }
