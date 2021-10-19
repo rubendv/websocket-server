@@ -21,6 +21,16 @@ impl Error {
     }
 }
 
+pub trait CustomResult<T> {
+    fn custom_err(self: Self, msg: &str) -> Result<T, Error>;
+}
+
+impl<T, E: Into<Box<dyn std::error::Error>>> CustomResult<T> for Result<T, E> {
+    fn custom_err(self: Self, msg: &str) -> Result<T, Error> {
+        self.map_err(|e| Error::new(msg, e))
+    }
+}
+
 impl std::convert::From<std::io::Error> for Error {
     fn from(e: std::io::Error) -> Self {
         Self::from(e)
